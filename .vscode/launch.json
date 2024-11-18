@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-WebcrawlerApplication<webcrawler>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.minorproject.webcrawler.WebcrawlerApplication",
+            "projectName": "webcrawler",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
