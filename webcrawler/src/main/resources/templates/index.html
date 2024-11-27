@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Live Web Crawler</title>
+	<style>
+	    /* General Reset */
+	    * {
+	        margin: 0;
+	        padding: 0;
+	        box-sizing: border-box;
+	    }
+
+	    body {
+	        font-family: 'Arial', sans-serif;
+	        background-color: #f8f9fa;
+	        color: #333;
+	        padding: 20px;
+	        line-height: 1.5;
+	    }
+
+	    h1 {
+	        text-align: center;
+	        margin-bottom: 20px;
+	        color: #007bff;
+	    }
+
+	    form {
+	        background: #fff;
+	        border: 1px solid #ddd;
+	        border-radius: 10px;
+	        max-width: 600px;
+	        margin: 0 auto;
+	        padding: 20px;
+	        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	    }
+
+	    form label {
+	        display: block;
+	        margin-bottom: 10px;
+	        font-weight: bold;
+	        font-size: 1rem;
+	    }
+
+	    form input, form select, form button {
+	        width: 100%;
+	        padding: 10px;
+	        margin-bottom: 15px;
+	        font-size: 1rem;
+	        border: 1px solid #ddd;
+	        border-radius: 5px;
+	        outline: none;
+	        transition: border-color 0.3s ease;
+	    }
+
+	    form input:focus, form select:focus {
+	        border-color: #007bff;
+	    }
+
+	    form button {
+	        background-color: #007bff;
+	        color: white;
+	        border: none;
+	        cursor: pointer;
+	        transition: background-color 0.3s ease;
+	    }
+
+	    form button:hover {
+	        background-color: #0056b3;
+	    }
+
+	    h2 {
+	        margin-top: 20px;
+	        text-align: center;
+	        color: #007bff;
+	    }
+
+	    ul#results {
+	        list-style-type: none;
+	        max-width: 600px;
+	        margin: 20px auto;
+	        padding: 0;
+	    }
+
+	    ul#results li {
+	        background: #f9f9f9;
+	        padding: 10px 15px;
+	        margin-bottom: 10px;
+	        border: 1px solid #ddd;
+	        border-radius: 5px;
+	        transition: background-color 0.3s ease;
+	    }
+
+	    ul#results li:hover {
+	        background-color: #f1f1f1;
+	    }
+	</style>
+
+    <script>
+        function startCrawl() {
+            const url = document.getElementById("url").value;
+            const algorithm = document.getElementById("algorithm").value;
+
+            const eventSource = new EventSource(`/api/crawl/live?url=${encodeURIComponent(url)}&algorithm=${algorithm}`);
+
+            eventSource.onmessage = function (event) {
+                const resultContainer = document.getElementById("results");
+                const newElement = document.createElement("li");
+                newElement.textContent = event.data;
+                resultContainer.appendChild(newElement);
+            };
+
+            eventSource.onerror = function () {
+                eventSource.close();
+            };
+        }
+    </script>
+</head>
+<body>
+    <h1>Live Web Crawler</h1>
+    <form onsubmit="event.preventDefault(); startCrawl();">
+        <label for="url">URL:</label>
+        <input type="text" id="url" required>
+        <label for="algorithm">Algorithm:</label>
+        <select id="algorithm" required>
+            <option value="dfs">DFS</option>
+            <option value="bfs">BFS</option>
+        </select>
+        <button type="submit">Start Crawl</button>
+    </form>
+    <h2>Results:</h2>
+    <ul id="results"></ul>
+</body>
+</html>
