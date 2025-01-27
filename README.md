@@ -57,11 +57,11 @@ Here is a poster summarizing the project:
 ![Project Poster](webpost.png)  
 
 ## Contributors  
-- **Your Name** - Developer  
-- **Other Contributors** (if any)  
+- **Garav Aggarwal** - Developer  
+- **Hitesh Matharu** - Developer
 
 ## License  
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.  
 
 ## Contact  
-For any queries, contact **your.email@example.com**  
+For any queries, contact **garav.work23@gmail.com**  
